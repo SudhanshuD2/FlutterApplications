@@ -11,7 +11,6 @@ class CtrApp extends StatefulWidget {
   State createState() => _CtrAppState();
 }
 class _CtrAppState extends State {
-  var bagcol= Colors.teal;
   int ctr = 0;
   @override
   Widget build(BuildContext context){
@@ -29,16 +28,10 @@ class _CtrAppState extends State {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             ctr++;
-            if(ctr == 7){
-              bagcol = Colors.yellow;
-            }else{
-              bagcol = Colors.teal;
-            }
             setState(() {});
           },
           child: const Icon(Icons.add),
         ),
-        backgroundColor: bagcol,
       ),);
   }
 }
