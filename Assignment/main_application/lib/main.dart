@@ -1,18 +1,44 @@
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const MainApp());
-}
-
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
+void main(){
+  runApp(const ScrollColumn());
+} 
+class ScrollColumn extends StatelessWidget{
+  const ScrollColumn({super.key});
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
+  Widget build(BuildContext context){
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
+        appBar: AppBar(
+          title: const Text('Scrolling Column', style: TextStyle(fontSize: 25)),
+          backgroundColor: Colors.blue[800]
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                height: 250,
+                width: 150,
+                color: Colors.red,
+              ),
+              Container(
+                height: 250,
+                width: 150,
+                color: Colors.blue,
+              ),
+              Container(
+                height: 250,
+                width: 150,
+                color: Colors.red,
+              ),
+              Container(
+                height: 250,
+                width: 150,
+                color: Colors.blue,
+              ),
+            ],
+          ),
         ),
       ),
     );
