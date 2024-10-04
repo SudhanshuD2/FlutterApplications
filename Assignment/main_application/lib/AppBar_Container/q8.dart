@@ -1,4 +1,3 @@
-// Container Gradient
 import 'package:flutter/material.dart';
 void main(){
   runApp(const MainApp());
@@ -11,7 +10,7 @@ class MainApp extends StatelessWidget{
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Question 9', style: TextStyle(fontSize: 20)),
+          title: const Text('Question 8', style: TextStyle(fontSize: 20)),
           backgroundColor: Colors.blue.shade200,
         ),
         body: Center(
@@ -22,8 +21,8 @@ class MainApp extends StatelessWidget{
               color: Colors.pink[50],
               border: Border.all(
                 color: Colors.red.shade900,
+
               ),
-              borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
             ), 
           ),
         ),

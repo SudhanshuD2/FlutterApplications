@@ -35,6 +35,7 @@ class _ShoesAppState extends State{
             fontWeight: FontWeight.w500,
           ),),
           backgroundColor: Colors.white,
+          actions: [IconButton(onPressed: (){}, icon: const Icon(Icons.shopping_cart_outlined))]
         ),
         body: Column(
           children: [
@@ -105,7 +106,7 @@ class _ShoesAppState extends State{
                     child: Text(textAlign: TextAlign.left,
                       'With iconic style and legendry comfort, the AF-1\nwas made to be worn on repeat. This iteration puts a\nfresh spin on the hoopsclassic with crisp leather, era-\nechoong \'80s construction and reflective-design\nSwoosh logos.',
                       style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontWeight: FontWeight.w500,
                       color: Colors.grey[600],
                     ),
@@ -122,7 +123,6 @@ class _ShoesAppState extends State{
                     onTap: (){
                       if(_ctr>1){
                         _ctr--;
-                        print("Substract : $_ctr");
                         setState(() {});
                       }
                     },
@@ -143,7 +143,6 @@ class _ShoesAppState extends State{
                   GestureDetector(
                     onTap: (){
                       _ctr++;
-                      print("Add : $_ctr");
                       setState(() {});
                     },
                     child: Icon(Icons.add, color: Colors.grey.shade700),),
@@ -153,7 +152,6 @@ class _ShoesAppState extends State{
             const SizedBox(height: 20),
             ElevatedButton(onPressed: (){
                 _ctr = 1;
-                print('Reset : $_ctr');
                 setState((){});
               },
               style: ButtonStyle(
