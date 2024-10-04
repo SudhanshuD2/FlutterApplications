@@ -19,14 +19,14 @@ class ListViewCode extends StatelessWidget{
             height: 200,
             width: 200,
             alignment: Alignment.bottomRight,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.orange.shade800,
-                  Colors.white70,
-                  Colors.green.shade800,
+                  Colors.black,
+                  Colors.pink,
+                  Colors.red,
                 ]
               ),
             ),
