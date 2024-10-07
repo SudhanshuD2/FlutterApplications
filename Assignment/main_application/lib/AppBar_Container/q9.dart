@@ -1,3 +1,4 @@
+// Container Gradient
 import 'package:flutter/material.dart';
 void main(){
   runApp(const MainApp());
@@ -22,7 +23,7 @@ class MainApp extends StatelessWidget{
               border: Border.all(
                 color: Colors.red.shade900,
               ),
-              borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
+              borderRadius: BorderRadius.circular(20),
             ), 
           ),
         ),
