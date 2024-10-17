@@ -310,7 +310,7 @@ class _HomePageState extends State<HomePage>{
                   ),
                 ),
               ],),
-            Container(height: 0.5, color: const Color.fromRGBO(138, 150, 172, 0.49),),
+            Container(height: 0.5, color: const Color.fromRGBO(138, 150, 172, 0.49),),  
             const SizedBox(height: 20),
             Container(
               height: 52,
