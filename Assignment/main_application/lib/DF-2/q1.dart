@@ -5,34 +5,26 @@ void main(){
 } 
 class MainApp extends StatelessWidget{
   const MainApp({super.key});
-
-
   @override
   Widget build(BuildContext context){
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Question 5', style: TextStyle(fontSize: 20)),
+          title: const Text('Question 1', style: TextStyle(fontSize: 20)),
           backgroundColor: Colors.blue.shade200,
         ),
         body: Center(
           child: Container(
             height: 200,
-            width: 300,
+            width: 200,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.white, width: 0.5),
-              shape: BoxShape.circle,
-              gradient: LinearGradient(colors:[
-                Colors.red.shade400,
-                Colors.blue.shade400,
-              ],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              stops: const [0.5, 0.5]
-              ),
-            ),
+              color: Colors.amber.shade100,
+              border: Border.all(color: Colors.red.shade600, width: 2),
+              borderRadius: BorderRadius.circular(20),
+            ), 
+            child: const Text('Incubators'),
           ),
         ),
         ),

@@ -5,33 +5,26 @@ void main(){
 } 
 class MainApp extends StatelessWidget{
   const MainApp({super.key});
-
-
   @override
   Widget build(BuildContext context){
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Question 5', style: TextStyle(fontSize: 20)),
+          title: const Text('Question 1', style: TextStyle(fontSize: 20)),
           backgroundColor: Colors.blue.shade200,
         ),
         body: Center(
           child: Container(
-            height: 200,
+            height: 300,
             width: 300,
             alignment: Alignment.center,
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.white, width: 0.5),
-              shape: BoxShape.circle,
-              gradient: LinearGradient(colors:[
-                Colors.red.shade400,
-                Colors.blue.shade400,
-              ],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              stops: const [0.5, 0.5]
-              ),
+              color: Colors.red.shade900,
+            ), 
+            child: Image.network(
+              'https://i1.sndcdn.com/artworks-000300679587-kpcar5-t500x500.jpg',
             ),
           ),
         ),

@@ -13,7 +13,7 @@ class MainApp extends StatelessWidget{
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Question 5', style: TextStyle(fontSize: 20)),
+          title: const Text('Question 4', style: TextStyle(fontSize: 20)),
           backgroundColor: Colors.blue.shade200,
         ),
         body: Center(
@@ -22,17 +22,17 @@ class MainApp extends StatelessWidget{
             width: 300,
             alignment: Alignment.center,
             decoration: BoxDecoration(
+              color: Colors.red,
               border: Border.all(color: Colors.white, width: 0.5),
-              shape: BoxShape.circle,
-              gradient: LinearGradient(colors:[
-                Colors.red.shade400,
-                Colors.blue.shade400,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.red.withOpacity(0.5),
+                  blurRadius: 5,
+                  offset: const Offset(0, -10),
+                ),
               ],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              stops: const [0.5, 0.5]
-              ),
             ),
+            child: Text('Incubators', style: TextStyle(fontSize: 25, color: Colors.amber.shade100)),
           ),
         ),
         ),
