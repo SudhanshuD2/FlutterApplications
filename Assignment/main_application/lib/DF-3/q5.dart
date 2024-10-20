@@ -30,7 +30,7 @@ class MainApp extends StatelessWidget{
               ],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
-              stops: const [0.5, 0.5]
+              stops: const [0.5, 0.5],
               ),
             ),
           ),
