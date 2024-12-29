@@ -267,10 +267,12 @@ class _QuizAppState extends State{
                   style: ButtonStyle(
                     backgroundColor: WidgetStatePropertyAll(Colors.blue[900]),
                   ),
-                  onPressed: (){
-                    currentQuestionIndex--;
-                    selectedAnswerIndex=-1;
-                  },
+                  onPressed: () => setState(() {
+                    if(currentQuestionIndex > 0 && currentQuestionIndex < allQuestions.length){
+                      currentQuestionIndex--;
+                      // selectedAnswerIndex=-1;
+                    }
+                  }),
                   child: Text("Prev.",
                     style: TextStyle(
                       fontSize: 20,

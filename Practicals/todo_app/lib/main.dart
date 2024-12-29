@@ -1,10 +1,9 @@
-// Where to go screen Application
+// To-do Application
 import 'package:flutter/material.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import './templates/bs_todo_model.dart';
-
+import './todo_model.dart';
+import 'package:intl/intl.dart';
 void main() {
   runApp(const MainApp());
 }
@@ -13,203 +12,312 @@ class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context){
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
-    );
-  }
-}
+  Widget build(BuildContext context) {
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+    List<TodoModel> todoList= <TodoModel>[];
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
+    TextEditingController titleController = TextEditingController();
+    TextEditingController descriptionController = TextEditingController();
+    TextEditingController dateController = TextEditingController();
 
-class _HomePageState extends State<HomePage>{
+    void clearControllers(){
+      titleController.clear();
+      descriptionController.clear();
+      dateController.clear();
+    }
 
-  
-  @override
-  Widget build(BuildContext context){
-
-    return Scaffold(
-      backgroundColor: const Color.fromRGBO(111, 81, 255, 1),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.only(left: 30,top: 45),
+    void submit(bool isEdit, [TodoModel? todoObj]){
+      if(titleController.text.trim().isNotEmpty && dateController.text.trim().isNotEmpty){
+        if(isEdit){
+          todoObj!.title = titleController.text;
+          todoObj.description = descriptionController.text;
+          todoObj.date = dateController.text;
+        }else{
+          todoList.add(
+            TodoModel(
+              date: dateController.text,
+              title: titleController.text,
+              description: descriptionController.text,
+            ),
+          );
+        }
+      
+      }
+    }
+    
+    void showSheet(bool isEdit, [TodoModel? todoObj]){
+      showModalBottomSheet(context: context,
+        isScrollControlled: true,
+        isDismissible: true,
+        builder: (context){
+          return Padding(
+            padding: EdgeInsets.only(left: 15, right: 15,bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const SizedBox(height:20),
                 Text(
-                  'Good morning',
+                  'Create To-Do',
                   style: GoogleFonts.quicksand(
-                    color: Colors.white,
                     fontSize: 22,
-                    fontWeight: FontWeight.w400,
-                  ),),
-                Text(
-                  'Gotham',
-                  style: GoogleFonts.quicksand(
-                    color: Colors.white,
-                    fontSize: 30,
                     fontWeight: FontWeight.w600,
                   ),),
-              ],),),
-          const SizedBox(height: 40),
-          // Grey shaded Container
-          Expanded(
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                color: Color.fromRGBO(217,217,217,1),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
-                ),
-              ),
-              child: Column(
-                children: [
-                  const SizedBox(height: 20,),
-                  Text(
-                    'CREATE TO DO LIST',
-                    style: GoogleFonts.quicksand(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),),
-                  const SizedBox(height: 30),
-
-                  // White Background Screen Builder
-                  Expanded(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(40),
-                          topRight: Radius.circular(40),
+                const SizedBox(height:20),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+            
+                    /// Title TextField input
+                    TextField(
+                      controller: titleController,
+                      decoration: InputDecoration(
+                        label: Text(
+                          'Title:',
+                          style: GoogleFonts.quicksand(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: const Color.fromRGBO(0,0,0,0.7),
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Color.fromRGBO(138,139,139,1),),
+                        ),
+                        hintText: 'Lorem Ipsum typeseting industry.',
+                      ),
+                      style: GoogleFonts.quicksand(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: const Color.fromRGBO(0,0,0,0.7),
+                      ),),
+                    const SizedBox(height: 30),
+                    /// Description textField
+                    TextField(
+                      controller: descriptionController,
+                      decoration: InputDecoration(
+                        label: Text(
+                          'Description',
+                          style: GoogleFonts.quicksand(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: const Color.fromRGBO(0,0,0,0.7),
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Color.fromRGBO(138,139,139,1),),
+                        ),
+                        hintText: 'Lorem Ipsum typeseting industry.',
+                      ),
+                      style: GoogleFonts.quicksand(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: const Color.fromRGBO(0,0,0,0.7),
+                      ),),
+                    const SizedBox(height: 30),
+                    /// Date TextField
+                    TextField(
+                      controller: dateController,
+                      decoration: InputDecoration(
+                        label: Text(
+                          'Date:',
+                          style: GoogleFonts.quicksand(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: const Color.fromRGBO(0,0,0,0.7),
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Color.fromRGBO(138,139,139,1),),
+                        ),
+                        suffixIcon: const Icon(Icons.calendar_month_outlined),
+                      ),
+                      style: GoogleFonts.quicksand(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: const Color.fromRGBO(0,0,0,0.7),
+                      ),
+                      onTap: () async {
+                        DateTime? pickDate = await showDatePicker(
+                          context: context,
+                          firstDate: DateTime(2024),
+                          lastDate: DateTime(2025),);
+                        String formatDate = DateFormat.yMMMd().format(pickDate!);
+                        
+                        setState(){
+                          dateController.text = formatDate;
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 50),
+                    GestureDetector(
+                      onTap: (){
+                        submit(false);
+                        Navigator.of(context).pop();
+                        clearControllers();
+                      },
+                      child: Container(
+                        height: 50,
+                        width: MediaQuery.of(context).size.width - 30,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: const Color.fromRGBO(89, 57, 241, 1),
+                        ),
+                        child: Text(
+                          'Submit',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.inter(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 25,
+                          ),
                         ),
                       ),
-                      child: ListView.builder(
-                        itemCount: 5,
-                        itemBuilder: (context, index){
-
-                          // main Container, listView...
-                          return Slidable(
-                            endActionPane: ActionPane(
-                              motion: const StretchMotion(),
-                              children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(top: 30, left: 20),
-                                      height: 30,
-                                      width: 30,
-                                      decoration: const BoxDecoration(
-                                        color: Color.fromRGBO(89, 57, 241, 1),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: const Icon(Icons.edit_outlined, color:Colors.white),
-                                    ),
-                                    Container(
-                                      margin: const EdgeInsets.only(left: 20),
-                                      height: 30,
-                                      width: 30,
-                                      decoration: const BoxDecoration(
-                                        color: Color.fromRGBO(89, 57, 241, 1),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: const Icon(Icons.delete_outline, color:Colors.white),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            child: Container(
-                              height: 100,
-                              margin: const EdgeInsets.only(top: 30),
-                              padding: const EdgeInsets.all(10),
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color.fromRGBO(0,0,0,0.16),
-                                    blurRadius: 12,
-                                    offset: Offset(0, 4),
-                                ),],
-                              ),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    height: 60,
-                                    width: 60,
-                                    margin: const EdgeInsets.only(left: 20),
-                                    decoration: const BoxDecoration(
-                                      color: Color.fromRGBO(217,217,217, 1),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: const Icon(Icons.image_outlined, size: 35, color: Colors.white),
-                                  ),
-                                  const SizedBox(width: 20),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        const SizedBox(height: 5),
-                                        // Title
-                                        Text(
-                                          'Lorem Ipsum is simply dummy industry.',
-                                          style: GoogleFonts.inter(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                          ),),
-                                        const SizedBox(height: 5),
-                                        // Description
-                                        Text(
-                                          'Simply dummy text of the printing and type setting industry. Lorem Ipsum Lorem Ipsum Lorem.',
-                                          style: GoogleFonts.inter(
-                                            color: const Color.fromRGBO(0,0,0,0.7),
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w400,
-                                          ),),
-                                        const SizedBox(height: 5),
-                                        // Date
-                                        Text(
-                                          '10 July 2023',
-                                          style: GoogleFonts.inter(
-                                            color: const Color.fromRGBO(0,0,0,0.7),
-                                            fontSize: 9,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
                     ),
-                  ),
-                ],
-              ),
+                    const SizedBox(height: 40),
+                ],),
+              ],
+            ),
+          );
+        });
+      }
+    
+    List<Color?> colList = <Color?>[
+      const Color.fromRGBO(250, 232, 232, 1),
+      const Color.fromRGBO(232, 237, 250, 1),
+      const Color.fromRGBO(250, 249, 232, 1),
+    ];
+    
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color.fromRGBO(2, 167, 177, 1),
+          title: Text(
+            'To-do List',
+            style: GoogleFonts.quicksand(
+              fontSize: 26,
+              fontWeight: FontWeight.w700,
+              color: const Color.fromRGBO(255, 255, 255, 1),
             ),
           ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          bottomSheetViewer();
-        },
-        backgroundColor: const Color.fromRGBO(89, 57, 241, 1),
-        child: const Icon(Icons.add_rounded, size: 32, color: Colors.white),
+        ),
+        body: ListView.builder(
+          itemCount: todoList.length,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                Container(
+                  height: 125,
+                  width: 370,
+                  margin: const EdgeInsets.only(top: 25),
+                  padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: colList[(index%colList.length)],
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            height: 63,
+                            width: 63,
+                            margin: const EdgeInsets.only(top: 10, left: 10),
+                            padding: const EdgeInsets.all(18),
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: SvgPicture.asset('asset/image.svg'),
+                          ),
+                          const SizedBox(width: 20),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(bottom: 15, right: 13),
+                                child: Text(
+                                  todoList[index].title!, 
+                                style: GoogleFonts.quicksand(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black,
+                                ),),
+                              ),
+                              SizedBox(
+                                child: Text(
+                                  todoList[index].description!,
+                                  style: GoogleFonts.quicksand(
+                                    fontSize: 10,
+                                    color: const Color.fromRGBO(84,84,84,1),
+                                  ),),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(top: 15, left: 10),
+                            child: Text(
+                              todoList[index].date!,
+                            style: GoogleFonts.quicksand(
+                              color: const Color.fromRGBO(132, 132, 132, 1),
+                              fontSize: 10,
+                              fontWeight: FontWeight.w400,
+                            ),),
+                          ),
+                          const Spacer(),
+
+                          // Edit Icon
+                          GestureDetector(
+                            onTap:(){
+                              titleController.text = todoList[index].title!;
+                              descriptionController.text = todoList[index].description!;
+                              dateController.text = todoList[index].date!;
+                              showSheet(true, todoList[index]);
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: const Icon(Icons.edit_outlined, size: 20,
+                              color: Color.fromRGBO(0, 139, 148, 1)),
+                            ),
+                          ),
+
+                          // Delete Icon
+                          GestureDetector(
+                            onTap: (){
+                              todoList.remove(todoList[index]);
+                              setState((){});
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 10),
+                              padding: const EdgeInsets.only(top: 5),
+                              child: const Icon(Icons.delete_outline, size: 20, 
+                              color: Color.fromRGBO(0, 139, 148, 1),),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            showSheet();
+          },
+          backgroundColor: Colors.blue,
+          child: const Icon(Icons.add_rounded, size: 40, color: Colors.white),
+        ),
       ),
     );
   }
